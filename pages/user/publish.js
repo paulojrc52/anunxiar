@@ -83,7 +83,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Publish = () => {
   const classes = useStyles()
-
   const [files, setFiles] = useState([])
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -101,6 +100,13 @@ const Publish = () => {
       ])
     }
   })
+
+  const handleRemoveFile = (fileName) => {
+    console.log(fileName)
+    const newFileState = files.filter(file => file.name !== fileName)
+
+    setFiles(newFileState)
+  }
 
   return (
     <TemplateDefault>
@@ -161,7 +167,7 @@ const Publish = () => {
             A primeira imagem é a foto principal do seu anúncio.
           </Typography>
           <Box className={classes.thumbsContainer}>
-          <Box className={classes.dropzone} {...getRootProps()}>
+            <Box className={classes.dropzone} {...getRootProps()}>
               <input {...getInputProps()}/>
               <Typography variant='body2' color='textPrimary'>
                 Clique para adicionar ou arraste a imagem para aqui.
@@ -185,7 +191,7 @@ const Publish = () => {
                       : null
                   }
                   <Box className={classes.mask}>
-                    <IconButton color='secondary'>
+                    <IconButton color='secondary' onClick={() => handleRemoveFile(file.name)}>
                       <DeleteForever fontSize='large'/>
                     </IconButton>
                   </Box>
