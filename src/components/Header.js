@@ -33,7 +33,7 @@ function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' className={classes.title}>
-            Anunxiar
+            AnunXiar
           </Typography>
           <Button color='inherit'>Login</Button>
         </Toolbar>
