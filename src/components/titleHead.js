@@ -8,12 +8,12 @@ import {
 import { makeStyles } from '@material-ui/core'
 
 const useStyle = makeStyles((theme) => ({
-  container: {
-    marginBottom: theme.spacing(5)
-  },
   boxButton: {
     textAlign:'center',
     margin: theme.spacing(2, 0, 5)
+  },
+  subtitle: {
+    margin: theme.spacing(0, 0, 5)
   }
 }))
 
@@ -27,7 +27,7 @@ const TitleHead = ({
   const classes = useStyle()
 
   return(
-    <Container maxWidth='md' className={classes.container}>
+    <Container maxWidth='md'>
       <Typography component='h1' variant={variant} align='center' color='textPrimary'>
         {title}
       </Typography>
