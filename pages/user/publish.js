@@ -115,9 +115,16 @@ const Publish = () => {
   return (
     <TemplateDefault>
       <TitleHead 
-        title='Publicar Anúncio'
-        subtitle='Quanto mais detalhado, melhor!'
-      />
+         title='Publicar Anúncio'
+         variant='h2'
+         subtitle={
+           <>
+             <Typography component='h5' variant='h5' align='center' color='textPrimary'>
+               Quanto mais detalhado, melhor!
+             </Typography>
+           </>
+         }
+       />
 
       <Container maxWidth='md' className={classes.boxContainer}>
         <Box className={classes.box}>

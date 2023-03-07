@@ -26,8 +26,15 @@ const classes = useStyles()
     <TemplateDefault>
       <TitleHead 
         title='Meus Anúncios'
-        titleButton='Publicar novo anúncio'
-        path='#'
+        variant='h2'
+        button={
+          <>
+            <Button variant='contained' color='primary'>
+              Publicar novo anúncio
+            </Button>
+          </>
+        }
+        path='/user/publish'
       />
       <Container maxWidth='md'>
         <Grid container spacing={4}>
