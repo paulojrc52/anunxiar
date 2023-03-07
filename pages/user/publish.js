@@ -2,16 +2,20 @@ import {
   Box,
   Button,
   Container,
+  IconButton,
   Select,
   TextField,
   Typography
 }from '@material-ui/core'
 import { makeStyles } from '@material-ui/core'
+import { DeleteForever } from '@material-ui/icons'
 
 import TitleHead from '../../src/components/TitleHead'
 import TemplateDefault from '../../src/templates/Default'
 
 const useStyles = makeStyles((theme) => ({
+  mask: {},
+  mainImage: {},
   box: {
     backgroundColor: theme.palette.background.white,
     padding: theme.spacing(3),
@@ -21,6 +25,53 @@ const useStyles = makeStyles((theme) => ({
   },
   boxButton: {
     textAlign:'right',
+  },
+  thumbsContainer: {
+    display: 'flex',
+    marginTop: 15,
+  },
+  dropzone: {
+    display: 'flex',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '10px',
+    margin: '0 15px 15px 0',
+    width: 200,
+    height: 150,
+    backgroundColor: theme.palette.background.default,
+    border: '2px dashed black'
+  },
+  thumb: {
+    position: 'relative',
+    width: 200,
+    height: 150,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center center',
+
+    '& $mainImage': {
+      backgroundColor: 'blue',
+      padding: '2px 8px',
+      position: 'absolute',
+      bottom: 0,
+      left: 0,
+    },
+
+    '& $mask': {
+      display: 'none',
+      textAlign: 'center',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.7)',
+      height: '100%',
+      width: '100%',
+    },
+
+    '&:hover $mask': {
+      display: 'flex',
+    },
+
+
   },
 
 }))
@@ -86,6 +137,28 @@ const Publish = () => {
           <Typography component='div' variant='body2' color='textPrimary'>
             A primeira imagem é a foto principal do seu anúncio.
           </Typography>
+          <Box className={classes.thumbsContainer}>
+            <Box className={classes.dropzone}>
+              <Typography variant='body2' color='textPrimary'>
+                Clique para adicionar ou arraste a imagem para aqui.
+              </Typography>
+            </Box>
+            <Box 
+              className={classes.thumb}
+              style={{backgroundImage: 'url(https://source.unsplash.com/random)'}}  
+            >
+              <Box className={classes.mainImage}>
+                <Typography variant='body2' color='secondary'>
+                  Principal
+                </Typography>
+              </Box>
+              <Box className={classes.mask}>
+                <IconButton color='secondary'>
+                  <DeleteForever fontSize='large'/>
+                </IconButton>
+              </Box>
+            </Box>
+          </Box>
         </Box>
       </Container>
 
