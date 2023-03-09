@@ -1,122 +1,113 @@
-import React from 'react'
+import { Formik } from 'formik'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 
 import {
-  Avatar,
+  Box,
+  Container,
+  FormControl,
+  FormHelperText,
+  Input,
+  InputLabel,
   Button,
-  CssBaseline,
-  TextField,
-  FormControlLabel,
-  Checkbox,
-  Link,
-  Paper,
-  Grid,
-  Typography,
+  CircularProgress
 } from '@material-ui/core'
 
-import LockOutlinedIcon from '@material-ui/icons/LockOpenOutlined'
-import { makeStyles } from '@material-ui/core/styles'
+import TemplateDefault from '../../../src/templates/Default'
+import TitleHead from '../../../src/components/TitleHead'
+import useToasty from '../../../src/contexts/Toasty'
+import { initialValues, validationSchema } from './formValues'
+import useStyles from './styles'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
-  image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
-    backgroundColor: '#ccc',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
 
-  },
-  form: {
-    width: '100%', // Fix IE11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-
-}))
-
-export default  function SignInSide() {
+const Signin = () => {
   const classes = useStyles()
+  const router = useRouter()
+  const {toasty, setToasty } = useToasty()
+
+  const handleFormSubmit = async values => {
+  }
 
   return(
-    <Grid container component='main' className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component='h1' variant='h5'>
-            Acesse a sua conta
-          </Typography>
+    <TemplateDefault>  
+      <TitleHead 
+        title='Entre na sua conta'
+        variant='h2'
+      />
 
-          <form className={classes.form} noValidate>
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              id='email'
-              label='E-mail'
-              name='email'
-              autoComplete='email'
-              autoFocus
-            />
+      <Container maxWidth='md'>
+        <Box className={classes.box}>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleFormSubmit}
+          > 
+            {
+              ({
+                touched,
+                values,
+                errors,
+                handleChange,
+                handleSubmit,
+                isSubmitting
+              }) => {
 
-            <TextField
-              variant='outlined'
-              margin='normal'
-              required
-              fullWidth
-              name='password'
-              label='Senha'
-              type='password'
-              id='password'
-              autoComplete='current-password'
-            />
+                return(
+                  <form onSubmit={handleSubmit}>
+                    <FormControl error={errors.email && touched.email} fullWidth>
+                      <InputLabel className={classes.inputLabel}>E-mail</InputLabel>
+                      <Input 
+                        name='email'
+                        type='email'
+                        value={values.email}
+                        onChange={handleChange}
+                      />
 
-            <Button
-              type='submit'
-              fullWidth
-              variant='contained'
-              color='primary'
-              className={classes.submit}
-            >
-              Entrar
-            </Button>
+                      <FormHelperText>
+                        {errors.email && touched.email ? errors.email : null}
+                      </FormHelperText>
+                    </FormControl>
 
-            <Grid container>
-              <Grid item xs>
-                <Link href='#' variant='body2'>
-                  Não tem uma conta?
-                  Cadastre-se
-                </Link>
-              </Grid>
+                    <FormControl error={errors.password && touched.password} fullWidth>
+                      <InputLabel className={classes.inputLabel}>Senha</InputLabel>
+                      <Input 
+                        name='password'
+                        type='password'
+                        value={values.password}
+                        onChange={handleChange}
+                      />
 
-              <Grid item>
-                <Link href='#' variant='body2'>
-                  Crie sua conta
-                </Link>
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-      </Grid>
-    </Grid>
+                      <FormHelperText>
+                        {errors.password && touched.password ? errors.password : null}
+                      </FormHelperText>
+                    </FormControl>
+                    {
+                      isSubmitting 
+                        ? (
+                        <CircularProgress className={classes.loading}/>
+                        ) : (
+                          <Button
+                            type='submit'
+                            variant='contained'
+                            color='primary'
+                            fullWidth
+                            className={classes.submit} 
+                          >
+                            Entrar
+                          </Button>
+                        )
+                    }
+                  </form>
+                )
+              }
 
+            }
+          </Formik>
+        </Box>
+      </Container>
+    </TemplateDefault>
   )
+
 }
+
+export default Signin
