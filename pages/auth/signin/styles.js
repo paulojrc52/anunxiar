@@ -15,7 +15,10 @@ const useStyles = makeStyles((theme) => ({
   loading: {
     display: 'block',
     margin: '10px auto'
-  }
+  },
+  errorMessage: {
+    margin: '10px 0'
+  },
 }))
 
 export default useStyles

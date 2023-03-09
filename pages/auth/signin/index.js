@@ -1,6 +1,7 @@
 import { Formik } from 'formik'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { signIn, useSession } from 'next-auth/client'
 
 import {
   Box,
@@ -12,6 +13,7 @@ import {
   Button,
   CircularProgress
 } from '@material-ui/core'
+import Alert from '@material-ui/lab/Alert'
 
 import TemplateDefault from '../../../src/templates/Default'
 import TitleHead from '../../../src/components/TitleHead'
@@ -24,8 +26,14 @@ const Signin = () => {
   const classes = useStyles()
   const router = useRouter()
   const {toasty, setToasty } = useToasty()
+  const [ session ] = useSession()
 
   const handleFormSubmit = async values => {
+    signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      callbackUrl: 'http://localhost:3000/user/dashboard'
+    })
   }
 
   return(
@@ -54,6 +62,15 @@ const Signin = () => {
 
                 return(
                   <form onSubmit={handleSubmit}>
+                    {
+                      router.query.i === '1'
+                      ? (
+                        <Alert severity='error' className={classes.errorMessage}>
+                          Usuário ou senha inválidos
+                        </Alert>
+                      )
+                      : null
+                    }
                     <FormControl error={errors.email && touched.email} fullWidth>
                       <InputLabel className={classes.inputLabel}>E-mail</InputLabel>
                       <Input 
