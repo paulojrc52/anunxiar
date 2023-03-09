@@ -4,6 +4,8 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import theme from '../src/theme'
 
+import { ToastyProvider } from '../src/contexts/Toasty'
+
 const MyApp = (props) => {
   const {Component, pageProps} = props
 
@@ -14,8 +16,10 @@ const MyApp = (props) => {
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
       </Head>
       <ThemeProvider theme={theme}>
-        <CssBaseline />  
-        <Component {...pageProps} />
+        <ToastyProvider>
+          <CssBaseline />  
+          <Component {...pageProps} />
+        </ToastyProvider>
       </ThemeProvider>    
     </>
   )
