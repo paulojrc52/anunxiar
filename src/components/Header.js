@@ -92,7 +92,7 @@ function ButtonAppBar() {
               </Link>
               <Divider className={classes.divider}/>
               <MenuItem onClick={() => signOut({
-                callbackUrl:'http://localhost:3000/'
+                callbackUrl:`${process.env.APP_URL}`
               })}>Sair</MenuItem>
             </Menu>
           </Toolbar>

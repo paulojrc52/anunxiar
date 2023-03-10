@@ -22,7 +22,7 @@ import { initialValues, validationSchema } from './formValues'
 import useStyles from './styles'
 
 
-const Signin = () => {
+const Signin = ({ APP_URL }) => {
   const classes = useStyles()
   const router = useRouter()
   const {toasty, setToasty } = useToasty()
@@ -32,7 +32,7 @@ const Signin = () => {
     signIn('credentials', {
       email: values.email,
       password: values.password,
-      callbackUrl: 'http://localhost:3000/user/dashboard'
+      callbackUrl: `${APP_URL}/user/dashboard`
     })
   }
 
@@ -125,6 +125,12 @@ const Signin = () => {
     </TemplateDefault>
   )
 
+}
+
+Signin.getInitialProps = async function() {
+  return {
+    APP_URL: process.env.APP_URL
+  }
 }
 
 export default Signin
