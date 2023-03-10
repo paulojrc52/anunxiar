@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { signOut, useSession } from 'next-auth/client'
 import {
   Avatar,
   Container,
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   userName: {
-    marginLeft: '7px',
+    marginLeft: '8px',
   },
   divider: {
     margin: '8px 0'
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 function ButtonAppBar() {
   const classes = useStyles()
   const [ anchorUserMenu, setAnchorUserMenu ] = useState(false)
+  const [ session ] = useSession()
 
   const openUserMenu = Boolean(anchorUserMenu)
 
@@ -52,22 +54,26 @@ function ButtonAppBar() {
             <Typography variant='h6' className={classes.title}>
               AnunXiar
             </Typography>
-            <Link href='/user/publish' passHref legacyBehavior>
+            <Link href={session ? '/user/publish' : '/auth/signin'} passHref legacyBehavior>
               <Button color='secondary' variant='outlined'>
                 Anunciar e vender
               </Button>
             </Link>
-
-            <IconButton color='secondary' onClick={(event) => setAnchorUserMenu(event.currentTarget)}>
-              {
-                true === false 
-                ? <Avatar src='' />
-                : <AccountCircle />
-              }
-              <Typography variant='subtitle2' color='secondary' className={classes.userName}>
-                Paulo Junior
-              </Typography>
-            </IconButton>
+            {
+              session
+                ? (
+                  <IconButton color='secondary' onClick={(event) => setAnchorUserMenu(event.currentTarget)}>
+                    {
+                      session.user.image 
+                        ? <Avatar src={session.user.image} />
+                        : <AccountCircle />
+                    }
+                    <Typography variant='subtitle2' color='secondary' className={classes.userName}>
+                      {session.user.name}
+                    </Typography>
+                  </IconButton>
+                ) : null
+            }
 
             <Menu
               anchorEl={anchorUserMenu}
@@ -85,7 +91,9 @@ function ButtonAppBar() {
                 <MenuItem>Publicar novo anúncio</MenuItem>
               </Link>
               <Divider className={classes.divider}/>
-              <MenuItem>Sair</MenuItem>
+              <MenuItem onClick={() => signOut({
+                callbackUrl:'http://localhost:3000/'
+              })}>Sair</MenuItem>
             </Menu>
           </Toolbar>
         </Container>
