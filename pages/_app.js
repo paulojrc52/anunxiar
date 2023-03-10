@@ -4,8 +4,9 @@ import { Provider } from 'next-auth/client'
 import { ThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 
-import theme from '../src/theme'
 import { ToastyProvider } from '../src/contexts/Toasty'
+import CheckAuth from '../src/components/CheckAuth'
+import theme from '../src/theme'
 
 const MyApp = (props) => {
   const {Component, pageProps} = props
@@ -20,7 +21,11 @@ const MyApp = (props) => {
         <ThemeProvider theme={theme}>
           <ToastyProvider>
             <CssBaseline />  
-            <Component {...pageProps} />
+            {
+              Component.requireAuth
+                ? <CheckAuth Component={Component} pageProps={pageProps} />
+                : <Component {...pageProps} />
+            }
           </ToastyProvider>
         </ThemeProvider>  
       </Provider>  
