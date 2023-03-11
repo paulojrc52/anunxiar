@@ -12,6 +12,7 @@ const post = async (req, res) => {
 
   const user = await UsersModel.findOne({ email })
 
+
   if(!user) {
     return res.status(401).json({success: false, message: 'invalid'})
   }
@@ -20,7 +21,7 @@ const post = async (req, res) => {
 
   if (passwordIsCorrect) {
     return res.status(200).json({ 
-      _id: user.id,
+      _id: user._id,
       name: user.name,
       email: user.email,
     })
