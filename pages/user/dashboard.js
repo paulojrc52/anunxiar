@@ -9,10 +9,12 @@ import {
 
 import { makeStyles } from '@material-ui/core/styles'
 
-import ProductsModel from '../../src/models/products'
 import TemplateDefault from '../../src/templates/Default'
+import ProductsModel from '../../src/models/products'
 import TitleHead from '../../src/components/TitleHead'
 import Card from '../../src/components/Card'
+
+import { formatCurrency } from '../../src/utils/currency'
 import dbConnect from '../../src/utils/dbConnect'
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
 const Home = ({ products }) => {
   const classes = useStyles()
 
-  console.log(products)
   return (   
     <TemplateDefault>
       <TitleHead 
@@ -47,7 +48,7 @@ const Home = ({ products }) => {
                 <Card
                   image={`/uploads/${product.files[0].name}`}
                   title={product.title}
-                  subtitle={product.price}
+                  subtitle={formatCurrency(product.price)}
                   actions={
                     <>
                       <Button size='small' color='primary'>
