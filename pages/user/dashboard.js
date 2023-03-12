@@ -1,3 +1,5 @@
+import { getSession } from 'next-auth/client'
+
 import { 
   Button, 
   Container, 
@@ -6,9 +8,12 @@ import {
 } from '@material-ui/core'
 
 import { makeStyles } from '@material-ui/core/styles'
+
+import ProductsModel from '../../src/models/products'
 import TemplateDefault from '../../src/templates/Default'
 import TitleHead from '../../src/components/TitleHead'
 import Card from '../../src/components/Card'
+import dbConnect from '../../src/utils/dbConnect'
 
 const useStyles = makeStyles((theme) => ({
   cardMedia: {
@@ -16,10 +21,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Home = () => {
+const Home = ({ products }) => {
   const classes = useStyles()
 
-  return (
+  console.log(products)
+  return (   
     <TemplateDefault>
       <TitleHead 
         title='Meus Anúncios'
@@ -35,77 +41,29 @@ const Home = () => {
       />
       <Container maxWidth='md'>
         <Grid container spacing={4}>
-          <Grid item xs={12} sm={6} md={4}>
-          <Card
-                image={'https://source.unsplash.com/random'}
-                title='Produto X'
-                subtitle='R$60,00'
-                actions={
-                  <>
-                    <Button size='small' color='primary'>
-                      Editar
-                    </Button>
-                    <Button size='small' color='primary'>
-                      Remover
-                    </Button> 
-                  </>
-                }
-              />    
-          </Grid>
+          {
+            products.map(product => (
+              <Grid key={product._id} item xs={12} sm={6} md={4}>
+                <Card
+                  image={`/uploads/${product.files[0].name}`}
+                  title={product.title}
+                  subtitle={product.price}
+                  actions={
+                    <>
+                      <Button size='small' color='primary'>
+                        Editar
+                      </Button>
+                      <Button size='small' color='primary'>
+                        Remover
+                      </Button> 
+                    </>
+                  }
+                />    
+              </Grid>
 
-          <Grid item xs={12} sm={6} md={4}>
-            <Card
-              image={'https://source.unsplash.com/random'}
-              title='Produto X'
-              subtitle='R$60,00'
-              actions={
-                <>
-                  <Button size='small' color='primary'>
-                    Editar
-                  </Button>
-                  <Button size='small' color='primary'>
-                    Remover
-                  </Button> 
-                </>
-                }
-            />    
-          </Grid>
+            ))
+          }
 
-          <Grid item xs={12} sm={6} md={4}>
-          <Card
-              image={'https://source.unsplash.com/random'}
-              title='Produto X'
-              subtitle='R$60,00'
-              actions={
-                <>
-                  <Button size='small' color='primary'>
-                    Editar
-                  </Button>
-                  <Button size='small' color='primary'>
-                    Remover
-                  </Button> 
-                </>
-                }
-            />  
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={4}>
-          <Card
-              image={'https://source.unsplash.com/random'}
-              title='Produto X'
-              subtitle='R$60,00'
-              actions={
-                <>
-                  <Button size='small' color='primary'>
-                    Editar
-                  </Button>
-                  <Button size='small' color='primary'>
-                    Remover
-                  </Button> 
-                </>
-                }
-            />  
-          </Grid>
         </Grid>
       </Container>
     </TemplateDefault>
@@ -113,5 +71,19 @@ const Home = () => {
 }
 
 Home.requireAuth = true
+
+export async function getServerSideProps({ req }) {
+  const { userId } = await getSession({ req })
+
+  await dbConnect()
+
+  const products = await ProductsModel.find({ 'user.id': userId})
+
+  return {
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+    }
+  }
+}
 
 export default Home
