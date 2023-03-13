@@ -1,5 +1,5 @@
 import nextConnect from 'next-connect'
-import { post } from '../../src/controllers/products'
+import { post } from '../../../src/controllers/products/post'
 
 const route = nextConnect()
 
@@ -11,4 +11,4 @@ export const config = {
   api: {
     bodyParser: false
   }
-}
+}  

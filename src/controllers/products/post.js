@@ -1,8 +1,8 @@
-import path from 'path'
 import fs from 'fs'
+import path from 'path'
 import formidable from 'formidable-serverless'
-import ProductsModel from '../models/products'
-import dbConnect from '../utils/dbConnect'
+import ProductsModel from '../../models/products'
+import dbConnect from '../../utils/dbConnect'
 
 const post = async (req, res) => {
   await dbConnect()
@@ -33,9 +33,9 @@ const post = async (req, res) => {
 
       const filename = `${timestamp}_${random}${extension}`
 
-      const oldpath = path.join(__dirname, `../../../../${file.path}`)
-      const newpath = path.join(__dirname,  `../../../../${form.uploadDir}/${filename}`)
-      
+      const oldpath = path.join(__dirname, `../../../../../${file.path}`)
+      const newpath = path.join(__dirname,  `../../../../../${form.uploadDir}/${filename}`)
+     
       filesToSave.push({
         name: filename,
         path: newpath
@@ -89,6 +89,8 @@ const post = async (req, res) => {
 
 }
 
+
+
 export {
-  post
+  post,
 }

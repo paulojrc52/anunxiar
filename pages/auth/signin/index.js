@@ -32,7 +32,7 @@ const Signin = ({ APP_URL }) => {
     signIn('credentials', {
       email: values.email,
       password: values.password,
-      callbackUrl: `${APP_URL}/user/dashboard`
+      callbackUrl: `http://localhost:3000/user/dashboard`
     })
   }
 
@@ -128,6 +128,8 @@ const Signin = ({ APP_URL }) => {
 }
 
 Signin.getInitialProps = async function() {
+
+  console.log(process.env.APP_URL)
   return {
     APP_URL: process.env.APP_URL
   }
