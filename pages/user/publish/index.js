@@ -22,6 +22,7 @@ import TemplateDefault from '../../../src/templates/Default'
 import FileUpload from '../../../src/components/FileUpload'
 import useToasty from '../../../src/contexts/Toasty'
 import { initialValues, validationSchema } from './formValues'
+import { formatDateInfo } from '../../../src/utils/dateInfo'
 
 import useStyles from './styles'
 import { getSession } from 'next-auth/client'
@@ -58,6 +59,7 @@ const Publish = ({ userId, image }) => {
 
   const handleSubmit = (values) => {
     const formData = new FormData()
+    values.publish = formatDateInfo(new Date())
 
     for(let field in values) {
       if(field === 'files') {
@@ -202,6 +204,37 @@ const Publish = ({ userId, image }) => {
                     </Box>
                   </Container>
 
+                  <Container maxWidth='md' className={classes.boxContainer} >
+                    <Box className={classes.box}>
+                      <Typography component='h6' variant='h6' color='textPrimary' gutterBottom>
+                        Localização
+                      </Typography>
+                      <FormControl error={errors.city && touched.city} fullWidth>
+                        <InputLabel className={classes.inputLabel}>Cidade</InputLabel>
+                        <Input 
+                          name='city'
+                          value={values.city}
+                          onChange={handleChange}
+                        />
+                        <FormHelperText>
+                          {errors.city && touched.city ? errors.city : null}
+                        </FormHelperText>
+                      </FormControl>
+
+                      <FormControl error={errors.state && touched.state} fullWidth>
+                        <InputLabel className={classes.inputLabel}>Estado</InputLabel>
+                        <Input 
+                          name='state'
+                          value={values.state}
+                          onChange={handleChange}
+                        />
+                        <FormHelperText>
+                          {errors.state && touched.state ? errors.state : null}
+                        </FormHelperText>
+                      </FormControl>
+                    </Box>
+                  </Container>
+                      <br /> <br />
 
                   <Container maxWidth='md' className={classes.boxContainer} >
                     <Box className={classes.box}>

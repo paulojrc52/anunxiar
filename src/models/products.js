@@ -22,6 +22,17 @@ const schema = new mongoose.Schema({
     type: Number,
     required: [true, 'O campo "preço" é obrigatório.']
   },
+  publish: {
+    type: String
+  },
+  city: {
+    type: String,
+    required: [true, 'O campo "preço" é obrigatório.']
+  },
+  state: {
+    type: String,
+    required: [true, 'O campo "preço" é obrigatório.']
+  },
   user: {
     id: String,
     name: String,
