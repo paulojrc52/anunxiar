@@ -43,7 +43,6 @@ const post = async (req, res) => {
 
       fs.rename(oldpath, newpath, (error) => {
         if(error) {
-          console.log(error)
           return res.status(500).json({ success: false })
         }
       })
@@ -56,7 +55,7 @@ const post = async (req, res) => {
       description,
       city,
       state,
-      publish,
+      published,
       price,
       name,
       email,
@@ -72,7 +71,7 @@ const post = async (req, res) => {
       price,
       city,
       state,
-      publish,
+      published,
       user: {
         id: userId,
         name,

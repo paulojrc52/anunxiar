@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   userName: {
-    marginLeft: '8px',
+    marginLeft: '4px',
   },
   divider: {
     margin: '8px 0'
@@ -51,9 +51,11 @@ function ButtonAppBar() {
       <AppBar position='static'>
         <Container maxWidth='lg'>
           <Toolbar>
-            <Typography variant='h6' className={classes.title}>
-              AnunXiar
-            </Typography>
+            <Link href={'/'} passHref legacyBehavior>
+              <Typography variant='h6' className={classes.title}>
+                AnunXiar
+              </Typography>
+            </Link>
             <Link href={session ? '/user/publish' : '/auth/signin'} passHref legacyBehavior>
               <Button color='secondary' variant='outlined'>
                 Anunciar e vender

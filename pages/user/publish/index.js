@@ -59,7 +59,7 @@ const Publish = ({ userId, image }) => {
 
   const handleSubmit = (values) => {
     const formData = new FormData()
-    values.publish = formatDateInfo(new Date())
+    values.published = formatDateInfo(new Date())
 
     for(let field in values) {
       if(field === 'files') {

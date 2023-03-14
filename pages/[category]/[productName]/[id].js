@@ -74,7 +74,7 @@ const Product = ({ product }) => {
             </Box>
 
             <Box className={classes.box} textAlign='left'>
-              <Typography component='span' variant='caption'>Publicado às {product.publish}</Typography>
+              <Typography component='span' variant='caption'>Publicado às {product.published}</Typography>
               <Typography component='h4' variant='h4' className={classes.productName}>{product.title}</Typography>
               <Typography component='h4' variant='h4' className={classes.price}>{formatCurrency(product.price)}</Typography>
               <Chip label={product.category} />

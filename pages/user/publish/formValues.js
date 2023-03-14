@@ -11,7 +11,7 @@ const initialValues = {
   name: '',
   phone: '',
   files: [],
-  publish: null,
+  published: null,
 }
 
 const validationSchema = yup.object().shape({

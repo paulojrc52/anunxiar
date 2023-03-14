@@ -128,8 +128,6 @@ const Signin = ({ APP_URL }) => {
 }
 
 Signin.getInitialProps = async function() {
-
-  console.log(process.env.APP_URL)
   return {
     APP_URL: process.env.APP_URL
   }
