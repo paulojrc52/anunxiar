@@ -22,6 +22,7 @@ const useStyle = makeStyles((theme) => ({
 
 const TitleHead = ({
   title,
+  subtitleHead,
   subtitle,
   variant,
   button,
@@ -31,8 +32,11 @@ const TitleHead = ({
 
   return(
     <Container maxWidth='md' className={classes.container}>
-      <Typography component='h1' variant={variant} align='center' color='textPrimary' className={classes.title}>
+      <Typography component='h1' variant={variant} align='center' color='textPrimary' >
         {title}
+      </Typography>
+      <Typography component='h5' variant='h5' align='center' color='textPrimary' className={classes.title}>
+        {subtitleHead}
       </Typography>
       {
         button

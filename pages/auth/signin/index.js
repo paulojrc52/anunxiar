@@ -36,6 +36,10 @@ const Signin = ({ APP_URL }) => {
     })
   }
 
+  const handleClickRegister = () => {
+    router.push('/auth/signup')
+  } 
+
   return(
     <TemplateDefault>  
       <TitleHead 
@@ -121,6 +125,19 @@ const Signin = ({ APP_URL }) => {
             }
           </Formik>
         </Box>
+
+        <Box className={classes.boxBottomLess}>
+          <Button
+            onClick={handleClickRegister}
+            variant='outlined'
+            color='primary'
+            fullWidth
+            className={classes.signup} 
+          >
+            Registrar
+          </Button>
+        </Box>
+    
       </Container>
     </TemplateDefault>
   )
