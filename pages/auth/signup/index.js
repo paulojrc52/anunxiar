@@ -44,13 +44,7 @@ const handleFormSubmit = async values => {
       <TitleHead 
         title='Crie sua conta'
         variant='h2'
-        subtitle={
-          <>
-            <Typography component='h5' variant='h5' align='center' color='textPrimary'>
-              E anuncie para todo o Brasil
-            </Typography>
-          </>
-        }
+        subtitleHead='E anuncie para todo o Brasil'
       />
 
       <Container maxWidth='md'>

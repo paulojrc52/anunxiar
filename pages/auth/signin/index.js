@@ -45,6 +45,7 @@ const Signin = ({ APP_URL }) => {
       <TitleHead 
         title='Entre na sua conta'
         variant='h2'
+        subtitleHead='E anuncie para todo o Brasil'
       />
 
       <Container maxWidth='md'>
