@@ -1,16 +1,13 @@
+import Link from 'next/link'
+import slugify from 'slugify'
+
 import {
   Container,
   Grid,
-  IconButton,
-  InputBase,
-  Paper,
   Typography
 } from '@material-ui/core'
 
-import SearchIcon from '@material-ui/icons/search'
 import { makeStyles } from '@material-ui/core/styles'
-
-import Link from 'next/link'
 
 import TemplateDefault from '../src/templates/Default'
 import TitleHead from '../src/components/TitleHead'
@@ -18,18 +15,9 @@ import Card from '../src/components/Card'
 import { formatCurrency } from '../src/utils/currency'
 import dbConnect from '../src/utils/dbConnect'
 import ProductsModel from '../src/models/products'
-import slugify from 'slugify'
+import InputSearch from '../src/components/InputSearch'
 
 const useStyles = makeStyles((theme) => ({
-  cardMedia: {
-    paddingTop: '56%',
-  },
-  searchPaper: {
-    display: 'flex',
-    justifyContent: 'center',
-    padding: theme.spacing(0, 2),
-    margin: theme.spacing(3, 0, 3 ),
-  },
   productLink: {
     textDecoration: 'none !important',
   },
@@ -37,28 +25,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Home = ({ products }) => {
   const classes = useStyles()
+  
   return (
     <TemplateDefault>
       <TitleHead 
         title='O que deseja encontrar?'
         variant='h3'
         subtitle={
-          <>
-            <Paper className={classes.searchPaper}>
-              <InputBase 
-                placeholder='Ex: Iphone XS Max com garantia'
-                fullWidth
-              />
-              <IconButton type='submit' aria-label='search'>
-                <SearchIcon />
-              </IconButton>
-            </Paper>
-          </>
+          <InputSearch />
         }
       />
-
       <Container maxWidth='lg'>
-        <Typography component='h2' variant='h4' align='center' color='textPrimary' className={classes.titleDest}>
+        <Typography component='h2' variant='h4' align='center' color='textPrimary'>
           Destaques
         </Typography>
         <br /> <br />

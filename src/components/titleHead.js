@@ -15,8 +15,8 @@ const useStyle = makeStyles((theme) => ({
     textAlign:'center',
     margin: theme.spacing(2, 0, 5)
   },
-  subtitle: {
-    margin: theme.spacing(0, 0, )
+  title: {
+    marginBottom: theme.spacing(3)
   }
 }))
 
@@ -31,7 +31,7 @@ const TitleHead = ({
 
   return(
     <Container maxWidth='md' className={classes.container}>
-      <Typography component='h1' variant={variant} align='center' color='textPrimary'>
+      <Typography component='h1' variant={variant} align='center' color='textPrimary' className={classes.title}>
         {title}
       </Typography>
       {

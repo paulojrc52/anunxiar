@@ -109,7 +109,7 @@ const Home = ({ products }) => {
         }
         path='/user/publish'
       />
-      <Container maxWidth='md'>
+      <Container maxWidth='lg'>
         {
           products.length === 0 && 
           <Typography component='div' variant='body1' align='center' color='textPrimary' gutterBottom>
